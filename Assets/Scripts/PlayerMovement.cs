@@ -61,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetBool("isShooting", false);
             }
 
+        }
     }
 
     public void OnLanding()
@@ -142,5 +143,4 @@ public class PlayerMovement : MonoBehaviour
         died = true;
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
 }
