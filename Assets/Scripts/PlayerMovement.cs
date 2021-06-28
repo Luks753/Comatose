@@ -53,12 +53,12 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isJump", true);
         }
 
-        if (Input.GetButtonDown("Fire1"))
-            {
-                animator.SetBool("isShooting", true);
-            }else{
-                animator.SetBool("isShooting", false);
-            }
+        if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Return)) )
+        {
+            animator.SetBool("isShooting", true);
+        }else{
+            animator.SetBool("isShooting", false);
+        }
 
     }
 

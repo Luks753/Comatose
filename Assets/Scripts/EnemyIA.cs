@@ -81,7 +81,7 @@ public class EnemyIA : MonoBehaviour
     }
 
     public void lostPlayer(){
-        target = patrolSpots[0];;        
+        target = patrolSpots[0];      
     }
 
 
