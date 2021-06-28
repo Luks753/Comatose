@@ -10,10 +10,12 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!PauseMenu.isPaused){
             if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Return))
             {
                 Shoot();
             }
+        }
     }
 
     void Shoot()

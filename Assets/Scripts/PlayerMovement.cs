@@ -44,21 +44,22 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        horizontalMove = Input.GetAxisRaw("Horizontal") * speed;
-        animator.SetFloat("speed", Mathf.Abs(horizontalMove));
+        if(!PauseMenu.isPaused){
+            horizontalMove = Input.GetAxisRaw("Horizontal") * speed;
+            animator.SetFloat("speed", Mathf.Abs(horizontalMove));
 
-        if (Input.GetButtonDown("Jump"))
-        {
-            jumping = true;
-            animator.SetBool("isJump", true);
-        }
-
-        if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Return)) )
-        {
-            animator.SetBool("isShooting", true);
-        }else{
-            animator.SetBool("isShooting", false);
-        }
+            if (Input.GetButtonDown("Jump"))
+            {
+                jumping = true;
+                animator.SetBool("isJump", true);
+            }
+            
+            if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Return)) )
+            {
+                animator.SetBool("isShooting", true);
+            }else{
+                animator.SetBool("isShooting", false);
+            }
 
     }
 
