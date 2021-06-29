@@ -12,7 +12,7 @@ public class EnemyIA : MonoBehaviour
     Path path;
     Seeker seeker;
     Rigidbody2D body;
-
+    SpriteRenderer sr;
     public float speed = 200f;
     public float nextWayPointDistance = 3f;
 
@@ -28,6 +28,7 @@ public class EnemyIA : MonoBehaviour
         // actualSpot = 0;
         seeker = GetComponent<Seeker>();
         body = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
         InvokeRepeating("UpdatePath", 0f, .5f);
     }
 
@@ -68,12 +69,7 @@ public class EnemyIA : MonoBehaviour
             currentWaypoint++;
         }
 
-        if(body.velocity.x >= 0.01f){
-                enemy.localScale = new Vector3(-4f,4f,4f);
-            }else if(body.velocity.x <= 0.01f){
-                enemy.localScale = new Vector3(4f,4f,4f);
-            }
-        
+        sr.flipX = body.velocity.x >= 0.01f;
     }
 
     public static void getPlayer(){

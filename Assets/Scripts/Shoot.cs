@@ -24,8 +24,6 @@ public class Shoot : MonoBehaviour
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("shot")
                 && hitInfo.tag != "shot")
         {
-            
-
             Enemy enemy = hitInfo.GetComponent<Enemy>();
             if (enemy != null)
             {
