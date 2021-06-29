@@ -6,6 +6,11 @@ public class Weapon : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bullet;
+    private AudioSource shot;
+
+    void Start(){
+        shot = GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -21,5 +26,6 @@ public class Weapon : MonoBehaviour
     void Shoot()
     {
         Instantiate(bullet, firePoint.position, firePoint.rotation);
+        shot.PlayOneShot(shot.clip);
     }
 }
