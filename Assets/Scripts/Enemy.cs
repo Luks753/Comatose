@@ -76,12 +76,11 @@ public class Enemy : MonoBehaviour
 
     void Die(){        
         animator.SetBool("isDead", true);
-        StartCoroutine(WaitDeath());
     }
 
-    IEnumerator WaitDeath()
+    // chamado na animação de explosão de inimigo
+    void Death()
     {
-        yield return new WaitForSeconds(deathTime);
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
         gameObject.SetActive(false);
