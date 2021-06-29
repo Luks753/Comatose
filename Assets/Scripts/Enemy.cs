@@ -74,14 +74,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Die(){        
-        animator.SetBool("isDead", true);
+    void Die(){
+        GetComponent<Collider2D>().enabled = false;
+        animator.SetTrigger("isDead");
     }
 
     // chamado na animação de explosão de inimigo
     void Death()
     {
-        GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
         gameObject.SetActive(false);
         PlayerMovement.specialKilled++;
