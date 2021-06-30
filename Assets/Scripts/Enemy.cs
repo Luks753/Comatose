@@ -11,9 +11,11 @@ public class Enemy : MonoBehaviour
 
     public int damage = 20;
 
-    public float attackRange = 0.5f;
+    public float attackRange = 0.7f;
     public float patrolRange = 2f;
     public float deathTime;
+    float nextAttack = 2f;
+    float attackRate = 2f;
 
     public int maxHP = 100;
     int actualHP;
@@ -29,57 +31,73 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-            //FindPlayer();
-            if(body.velocity.x != 0){
-                animator.SetBool("speed", true);
-            }else{
-                animator.SetBool("speed", false);
-            }
-            Attack();
+        //FindPlayer();
+        if (body.velocity.x != 0)
+        {
+            animator.SetBool("speed", true);
+        }
+        else
+        {
+            animator.SetBool("speed", false);
+        }
+
+        if (Time.time >= nextAttack)
+        {
+            Attack();            
+        }
     }
 
     public void getDeathTime()
     {
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
-        foreach(AnimationClip clip in clips)
+        foreach (AnimationClip clip in clips)
         {
-            if(clip.name == "death"){
+            if (clip.name == "death")
+            {
                 deathTime = clip.length;
             }
         }
     }
 
-    public void TakeDamage(int damage){
+    public void TakeDamage(int damage)
+    {
         actualHP -= damage;
         animator.SetTrigger("hit");
-        if(actualHP <= 0){
+        if (actualHP <= 0)
+        {
             body.constraints = RigidbodyConstraints2D.FreezeAll;
             Die();
         }
     }
 
-    void Attack(){
+    void Attack()
+    {
         Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attack.position, attackRange, playerLayer);
 
-        foreach(Collider2D player in hitPlayer){
+        foreach (Collider2D player in hitPlayer)
+        {
             player.GetComponent<PlayerMovement>().TakeDamage(damage);
+            nextAttack = Time.time + 1f / attackRate;
         }
     }
 
-    void FindPlayer(){
+    void FindPlayer()
+    {
         Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(patrol.position, patrolRange, playerLayer);
 
-        foreach(Collider2D player in hitPlayer){
+        foreach (Collider2D player in hitPlayer)
+        {
             EnemyIA.target = player.GetComponent<Transform>();
         }
     }
 
-    void Die(){
+    void Die()
+    {
         GetComponent<Collider2D>().enabled = false;
         animator.SetTrigger("isDead");
     }
 
-    // chamado na animação de explosão de inimigo
+    // chamado na animaï¿½ï¿½o de explosï¿½o de inimigo
     void Death()
     {
         this.enabled = false;
@@ -87,8 +105,10 @@ public class Enemy : MonoBehaviour
         PlayerMovement.specialKilled++;
     }
 
-    void OnDrawGizmosSelected(){
-        if(attack == null){
+    void OnDrawGizmosSelected()
+    {
+        if (attack == null)
+        {
             return;
         }
 
