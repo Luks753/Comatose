@@ -2021,13 +2021,13 @@ GameObject:
   m_Component:
   - component: {fileID: 431986718}
   - component: {fileID: 431986717}
-  - component: {fileID: 431986716}
   - component: {fileID: 431986714}
   - component: {fileID: 431986720}
   - component: {fileID: 431986719}
   - component: {fileID: 431986715}
   - component: {fileID: 431986721}
   - component: {fileID: 431986722}
+  - component: {fileID: 431986716}
   m_Layer: 6
   m_Name: player
   m_TagString: Untagged
@@ -2221,7 +2221,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   damage: 20
-  maxHP: 200
+  maxHP: 150
 --- !u!114 &431986721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2795,7 +2795,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  damage: 20
+  damage: 50
   attackRange: 0.7
   patrolRange: 2
   deathTime: 0
@@ -12222,7 +12222,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  damage: 20
+  damage: 50
   attackRange: 0.7
   patrolRange: 2
   deathTime: 0
@@ -13965,7 +13965,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  damage: 20
+  damage: 50
   attackRange: 0.7
   patrolRange: 2
   deathTime: 0
@@ -14795,7 +14795,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  damage: 20
+  damage: 50
   attackRange: 0.7
   patrolRange: 2
   deathTime: 0
@@ -15048,7 +15048,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  damage: 20
+  damage: 50
   attackRange: 0.7
   patrolRange: 2
   deathTime: 0
@@ -15569,7 +15569,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  damage: 20
+  damage: 50
   attackRange: 0.7
   patrolRange: 2
   deathTime: 0
