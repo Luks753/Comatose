@@ -76,7 +76,7 @@ public class Enemy : MonoBehaviour
 
         foreach (Collider2D player in hitPlayer)
         {
-            player.GetComponent<PlayerMovement>().TakeDamage(damage);
+            player.GetComponent<PlayerMovement>().TakeDamage(damage, transform.position.x);
             nextAttack = Time.time + 1f / attackRate;
         }
     }

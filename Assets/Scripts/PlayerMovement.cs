@@ -71,7 +71,10 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, jumping);
+        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("hurt"))
+        {
+            controller.Move(horizontalMove * Time.fixedDeltaTime, jumping);
+        }
         jumping = false;
     }
 
@@ -105,9 +108,23 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawWireSphere(attack.position, attackRange);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, float enemyPositionX)
     {
         actualHP -= damage;
+        float forceX = 400f, forceY = 500f;
+        body.velocity = Vector2.zero;
+
+        if(transform.position.x < enemyPositionX)
+        {
+            forceX *= -1;
+            if (transform.rotation.y == -180)
+                controller.Flip();
+        }
+        else if (transform.position.x > enemyPositionX && transform.rotation.y == 0)
+        {
+            controller.Flip();
+        }
+        body.AddForce(new Vector2(forceX, forceY));
         animator.SetTrigger("hit");
         if (actualHP <= 0)
         {
