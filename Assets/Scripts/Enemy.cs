@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -21,10 +22,12 @@ public class Enemy : MonoBehaviour
     int actualHP;
 
     Rigidbody2D body;
+    Animator anim;
 
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         actualHP = maxHP;
         getDeathTime();
     }
@@ -43,7 +46,7 @@ public class Enemy : MonoBehaviour
 
         if (Time.time >= nextAttack)
         {
-            Attack();            
+            Attack();
         }
     }
 
@@ -73,12 +76,15 @@ public class Enemy : MonoBehaviour
     void Attack()
     {
         Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attack.position, attackRange, playerLayer);
-
-        foreach (Collider2D player in hitPlayer)
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("explosion"))
         {
-            player.GetComponent<PlayerMovement>().TakeDamage(damage, transform.position.x);
-            nextAttack = Time.time + 1f / attackRate;
+            foreach (Collider2D player in hitPlayer)
+            {
+                player.GetComponent<PlayerMovement>().TakeDamage(damage, transform.position.x);
+                nextAttack = Time.time + 1f / attackRate;
+            }
         }
+
     }
 
     void FindPlayer()
@@ -93,7 +99,15 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-        GetComponent<Collider2D>().enabled = false;
+        var colliders = GetComponents<Collider2D>();
+        if (colliders != null)
+        {
+            foreach (var collider in colliders)
+            {
+                collider.enabled = false;
+            }
+        }
+
         animator.SetTrigger("isDead");
     }
 
