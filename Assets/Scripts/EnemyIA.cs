@@ -23,9 +23,7 @@ public class EnemyIA : MonoBehaviour
 
     void Start()
     {
-        target = GameObject.Find("player").transform;  
-        // target = patrolSpots[0];
-        // actualSpot = 0;
+        target = GameObject.Find("player").transform; 
         seeker = GetComponent<Seeker>();
         body = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();

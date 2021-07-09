@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+        
     public Transform firePoint;
     public GameObject bullet;
     private AudioSource shot;
