@@ -84,7 +84,7 @@ public class BossIA : MonoBehaviour
             seeker.CancelCurrentPathRequest(true);
             if (Time.time >= teleportInterval)
             {
-                //Teleport();
+                Teleport();
                 teleportInterval = Time.time + 5f;
             }
 
