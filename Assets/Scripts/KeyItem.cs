@@ -19,7 +19,7 @@ public class KeyItem : MonoBehaviour
         }
         catch (System.Exception ex)
         {
-            
+            //do nothing
         }
 
     }
