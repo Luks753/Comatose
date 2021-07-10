@@ -27,9 +27,11 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    void Shoot()
+    protected void Shoot()
     {
         Instantiate(bullet, firePoint.position, firePoint.rotation);
-        shot.PlayOneShot(shot.clip);
+
+        if(shot != null)
+            shot.PlayOneShot(shot.clip);
     }
 }

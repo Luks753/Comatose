@@ -3,12 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OctopusShot : Weapon
+public class OctopusBehavior : Weapon
 {
 
     GameObject player;
     Vector2 AreaAcao = new Vector2(10, 10);
+    BoxCollider2D boxCollider;
     bool m_FacingRight;
+    Rigidbody2D rb;
+
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        rb = GetComponent<Rigidbody2D>();
+        rb.Sleep();
+    }
 
     private void OnDrawGizmos()
     {
@@ -23,7 +32,7 @@ public class OctopusShot : Weapon
 
         if (playerEntrou.collider.CompareTag("Player"))
         {
-            Debug.LogWarning("em breve coisas");
+            Shoot();
         }
 
         if (player.transform.position.x > transform.position.x && !m_FacingRight)
@@ -38,6 +47,7 @@ public class OctopusShot : Weapon
 
     private void Flip()
     {
-        
+        m_FacingRight = !m_FacingRight;
+        transform.Rotate(0f, 180f, 0f);
     }
 }
