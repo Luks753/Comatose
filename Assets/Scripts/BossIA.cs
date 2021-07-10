@@ -106,13 +106,15 @@ public class BossIA : MonoBehaviour
         Vector3 raycastDirection = (bIsGoingRight) ? Vector3.right : Vector3.left;
 
         // Raycasting takes as parameters a Vector3 which is the point of origin, another Vector3 which gives the direction, and finally a float for the maximum distance of the raycast
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + raycastDirection * mRaycastingDistance - new Vector3(0f, 0.25f, 0f), raycastDirection, 0.075f);
-        Debug.DrawRay(transform.position + raycastDirection * mRaycastingDistance - new Vector3(0f, 0.25f, 0f), raycastDirection, Color.green);
+        //set a pos for raycast from boss position
+        Vector3 rayPos = new Vector3(transform.position.x, transform.position.y-0.5f, 0f);
+        RaycastHit2D hit = Physics2D.Raycast(rayPos + raycastDirection * mRaycastingDistance - new Vector3(0f, 0.25f, 0f), raycastDirection, 0.075f);
+        Debug.DrawRay(rayPos + raycastDirection * mRaycastingDistance - new Vector3(0f, 0.25f, 0f), raycastDirection, Color.green);
 
         // if we hit something, check its tag and act accordingly
         if (hit.collider != null)
         {
-            if (hit.transform.tag == "Terrain")
+            if (hit.transform.tag == "Terrain" || hit.transform.tag == "Crab")
             {
                 bIsGoingRight = !bIsGoingRight;
                 _mSpriteRenderer.flipX = bIsGoingRight;
