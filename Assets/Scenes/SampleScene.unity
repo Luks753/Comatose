@@ -3551,8 +3551,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b877e5e1d532a49b68df34ea938f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: []
-  keyFeather: {fileID: 0}
 --- !u!65 &463390837
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3562,7 +3560,7 @@ BoxCollider:
   m_GameObject: {fileID: 463390833}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.2, y: 1.2, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
@@ -4292,6 +4290,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 523972132}
+  - component: {fileID: 523972133}
   m_Layer: 0
   m_Name: KeyParts
   m_TagString: Untagged
@@ -4317,6 +4316,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &523972133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523972131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890da9d2a38fb8e4b88da1d51ffce093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyA1:
+  - {fileID: 574239788}
+  - {fileID: 1501128210}
+  - {fileID: 1454990678}
+  - {fileID: 1497314431}
+  enemyA2:
+  - {fileID: 1282795851}
+  - {fileID: 1327863933}
+  - {fileID: 158112469}
+  keyFeatherA1: {fileID: 1947578449}
+  keyFeatherA2: {fileID: 995853060}
 --- !u!1 &524436524
 GameObject:
   m_ObjectHideFlags: 0
@@ -21102,8 +21124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b877e5e1d532a49b68df34ea938f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: []
-  keyFeather: {fileID: 0}
 --- !u!65 &895722141
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21113,7 +21133,7 @@ BoxCollider:
   m_GameObject: {fileID: 895722137}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.2, y: 1.2, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
@@ -21388,7 +21408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &995853061
 Transform:
   m_ObjectHideFlags: 0
@@ -21434,11 +21454,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b877e5e1d532a49b68df34ea938f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy:
-  - {fileID: 1282795851}
-  - {fileID: 1327863933}
-  - {fileID: 158112469}
-  keyFeather: {fileID: 995853060}
 --- !u!65 &995853064
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21448,7 +21463,7 @@ BoxCollider:
   m_GameObject: {fileID: 995853060}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.2, y: 1.2, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
@@ -75826,7 +75841,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1947578450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75839,12 +75854,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b877e5e1d532a49b68df34ea938f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy:
-  - {fileID: 574239788}
-  - {fileID: 1501128210}
-  - {fileID: 1454990678}
-  - {fileID: 1497314431}
-  keyFeather: {fileID: 1947578449}
 --- !u!65 &1947578451
 BoxCollider:
   m_ObjectHideFlags: 0
