@@ -8,34 +8,31 @@ public class BossIA : MonoBehaviour
     public Transform[] teleportPoints;
     Rigidbody2D body;
     public Animator animator;
-    public bool followPlayer = false;
+    public bool followPlayer = true;
     public float mMovementSpeed = 3.0f;
     public bool bIsGoingRight = true;
     public float mRaycastingDistance = 2f;
     private SpriteRenderer _mSpriteRenderer;
     float teleportInterval = 5f;
     public Transform castPoint;
-    public static Transform target;
+    public static Transform player;
     Path path;
     Seeker seeker;
     public float speed = 200f;
     public float nextWayPointDistance = 3f;
     int currentWaypoint = 0;
     bool reachedEndOfPath = false;
-    float sightDistance = 2f;
-
+    float sightDistance = 4f;
 
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.Find("player").transform;
+        player = GameObject.Find("player").transform;
         seeker = GetComponent<Seeker>();
         body = GetComponent<Rigidbody2D>();
         _mSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         _mSpriteRenderer.flipX = bIsGoingRight;
-        InvokeRepeating("UpdatePath", 0f, .5f);
     }
-
 
     void Update()
     {
@@ -48,17 +45,12 @@ public class BossIA : MonoBehaviour
             animator.SetBool("walking", false);
         }
 
-        if(SeePlayer(sightDistance)){
-            followPlayer = true;
-        }else{
-            followPlayer = false;
-        }
-
-
         if (followPlayer)
         {
+
             if (path == null)
             {
+                InvokeRepeating("UpdatePath", 0f, .5f);
                 return;
             }
             if (currentWaypoint >= path.vectorPath.Count)
@@ -88,6 +80,7 @@ public class BossIA : MonoBehaviour
         }
         else
         {
+            Debug.Log("Para caminho");
             if (Time.time >= teleportInterval)
             {
                 //Teleport();
@@ -96,6 +89,7 @@ public class BossIA : MonoBehaviour
 
             Vector3 directionTranslation = (bIsGoingRight) ? transform.right : -transform.right;
             directionTranslation *= Time.deltaTime * mMovementSpeed;
+            animator.SetBool("walking", true);
 
             transform.Translate(directionTranslation);
 
@@ -112,6 +106,7 @@ public class BossIA : MonoBehaviour
 
         // Raycasting takes as parameters a Vector3 which is the point of origin, another Vector3 which gives the direction, and finally a float for the maximum distance of the raycast
         RaycastHit2D hit = Physics2D.Raycast(transform.position + raycastDirection * mRaycastingDistance - new Vector3(0f, 0.25f, 0f), raycastDirection, 0.075f);
+        Debug.DrawRay(transform.position + raycastDirection * mRaycastingDistance - new Vector3(0f, 0.25f, 0f), raycastDirection, Color.green);
 
         // if we hit something, check its tag and act accordingly
         if (hit.collider != null)
@@ -128,8 +123,8 @@ public class BossIA : MonoBehaviour
     void UpdatePath()
     {
 
-        if (seeker.IsDone() && followPlayer)
-            seeker.StartPath(body.position, target.position, OnPathComplete);
+        if (seeker.IsDone())
+            seeker.StartPath(body.position, player.position, OnPathComplete);
     }
 
     void OnPathComplete(Path p)
@@ -149,36 +144,45 @@ public class BossIA : MonoBehaviour
         transform.position = teleportPoints[point].transform.position;
     }
 
-    bool SeePlayer(float distance){
-        bool val = false;
-        float castDist = distance;
+    // bool SeePlayer(float distance)
+    // {
+    //     bool val = false;
+    //     float castDist = distance;
+    //     Vector3 raycastDirection = (bIsGoingRight) ? Vector3.right : Vector3.left;
 
-        if(!bIsGoingRight){
-            castDist = -distance;
-        }
+    //     // if(!bIsGoingRight){
+    //     //     castDist = -distance;
+    //     // }
 
-        Vector2 endPos = castPoint.position + Vector3.right * castDist;
+    //     Vector2 endPos = castPoint.position + Vector3.forward * castDist;
 
-        RaycastHit2D hit = Physics2D.Raycast(castPoint.position, endPos, 1 << LayerMask.NameToLayer("Action"));
+    //     RaycastHit2D hit = Physics2D.Raycast(castPoint.position, raycastDirection, castDist);
 
-        if(hit.collider != null){
-            if(hit.collider.gameObject.CompareTag("Player")){
-                val = true;
-            }else{
-                val = false;
-            }
+    //     if (hit.collider != null)
+    //     {
+    //         if (hit.collider.gameObject.CompareTag("Player"))
+    //         {
+    //             val = true;
+    //         }
+    //         else
+    //         {
+    //             val = false;
+    //         }
 
-            Debug.DrawLine(castPoint.position, hit.point, Color.red);
-        }else{
-            Debug.DrawLine(castPoint.position, endPos, Color.yellow);
+    //         Debug.DrawLine(castPoint.position, hit.point, Color.red);
+    //     }
+    //     else
+    //     {
+    //         Debug.DrawLine(castPoint.position, endPos, Color.yellow);
 
-        }
+    //     }
 
 
-        return val;
-    }
+    //     return val;
+    // }
+    void OnDrawGizmosSelected()
+    {
 
-    static void FindPlayer(){
-        
+        Gizmos.DrawWireSphere(castPoint.position, sightDistance);
     }
 }
