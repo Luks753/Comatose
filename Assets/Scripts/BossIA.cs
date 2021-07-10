@@ -81,6 +81,7 @@ public class BossIA : MonoBehaviour
         else
         {
             Debug.Log("Para caminho");
+            seeker.CancelCurrentPathRequest(true);
             if (Time.time >= teleportInterval)
             {
                 //Teleport();
