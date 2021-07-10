@@ -30,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
     public static bool died;
     int actualHP;
 
+    public AudioSource audioHurt;
+    public AudioSource audioDied;
+
     Rigidbody2D body;
 
     void Start()
@@ -125,10 +128,12 @@ public class PlayerMovement : MonoBehaviour
             controller.Flip();
         }
         body.AddForce(new Vector2(forceX, forceY));
+        audioHurt.PlayOneShot(audioHurt.clip);
         animator.SetTrigger("hit");
         if (actualHP <= 0)
         {
             body.constraints = RigidbodyConstraints2D.FreezeAll;
+            audioDied.PlayOneShot(audioDied.clip);
             Die();
         }
     }
