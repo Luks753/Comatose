@@ -8,6 +8,7 @@ TagManager:
   - Terrain
   - Crab
   - Enemy
+  - Key
   layers:
   - Default
   - TransparentFX
