@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!PauseMenu.isPaused || animator.GetCurrentAnimatorStateInfo(0).IsName("hurt"))
+        if(!PauseMenu.isPaused && !animator.GetCurrentAnimatorStateInfo(0).IsName("hurt"))
         {
             if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Return))
             {

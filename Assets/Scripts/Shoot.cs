@@ -20,20 +20,33 @@ public class Shoot : MonoBehaviour
         sr.sortingOrder = 9999;
     }
 
-    void OnTriggerEnter2D(Collider2D hitInfo){
+    void OnTriggerEnter2D(Collider2D hitInfo)
+    {
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("shot")
                 && hitInfo.tag != "shot")
         {
-            Enemy enemy = hitInfo.GetComponent<Enemy>();
-            if (enemy != null)
+            if (gameObject.CompareTag("Player"))
             {
-                enemy.TakeDamage(damage);
+                var target = hitInfo.GetComponent<PlayerMovement>();
+
+                if (target != null)
+                {
+                    target.TakeDamage(damage, transform.position.x);
+                }
+            }
+            else
+            {
+                var target = hitInfo.GetComponent<Enemy>();
+                if (target != null)
+                {
+                    target.TakeDamage(damage);
+                }
             }
 
             rb.velocity = Vector2.zero;
             anim.SetTrigger("hit");
         }
-        
+
     }
 
     void DestroyThis()
