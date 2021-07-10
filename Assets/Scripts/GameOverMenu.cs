@@ -38,7 +38,10 @@ public class GameOverMenu : MonoBehaviour
     }
 
     public void Menu(){
+        overMenuUI.SetActive(false);
         Time.timeScale = 1f;
+        isPaused = false;
+        player.SetActive(true);
         SceneManager.LoadScene(menuScene);
     }
 
