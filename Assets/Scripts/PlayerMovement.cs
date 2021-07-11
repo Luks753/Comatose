@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Transform[] spawnPoints;
     public CharacterController2D controller;
     public Animator animator;
     public Transform attack;
@@ -37,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        int point = Random.Range(0, spawnPoints.Length);
+        transform.position = spawnPoints[point].transform.position;
         specialMode = false;
         specialKilled = 0;
         died = false;
