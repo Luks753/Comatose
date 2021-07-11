@@ -75,16 +75,18 @@ public class Enemy : MonoBehaviour
 
     void Attack()
     {
-        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attack.position, attackRange, playerLayer);
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("explosion"))
+        if (attack != null)
         {
-            foreach (Collider2D player in hitPlayer)
+            Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attack.position, attackRange, playerLayer);
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("explosion"))
             {
-                player.GetComponent<PlayerMovement>().TakeDamage(damage, transform.position.x);
-                nextAttack = Time.time + 1f / attackRate;
+                foreach (Collider2D player in hitPlayer)
+                {
+                    player.GetComponent<PlayerMovement>().TakeDamage(damage, transform.position.x);
+                    nextAttack = Time.time + 1f / attackRate;
+                }
             }
         }
-
     }
 
     void FindPlayer()

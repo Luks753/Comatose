@@ -25,7 +25,7 @@ public class Shoot : MonoBehaviour
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("shot")
                 && hitInfo.tag != "shot")
         {
-            if (gameObject.CompareTag("Player"))
+            if (hitInfo.CompareTag("Player"))
             {
                 var target = hitInfo.GetComponent<PlayerMovement>();
 
