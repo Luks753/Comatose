@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -34,6 +35,10 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource audioHurt;
     public AudioSource audioDied;
 
+    public Image[] sanity;
+
+    private Color tempColor;
+
     Rigidbody2D body;
 
     void Start()
@@ -46,6 +51,21 @@ public class PlayerMovement : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         actualHP = maxHP;
         getDeathTime();
+
+        tempColor = sanity[0].color;
+        tempColor.a = 1f;
+        setSanity();
+    }
+
+    void setSanity()
+    {
+        foreach(Image s in sanity){
+            s.enabled = true;
+            s.color = tempColor;
+        }
+
+        //assigning a custom opacity to be used ingame
+        tempColor.a = 0.3f;
     }
 
     void Update()
@@ -137,8 +157,19 @@ public class PlayerMovement : MonoBehaviour
         {
             body.constraints = RigidbodyConstraints2D.FreezeAll;
             audioDied.PlayOneShot(audioDied.clip);
+            sanity[0].color = tempColor;
             Die();
         }
+        if (actualHP <= 100)
+        {
+            sanity[2].color = tempColor;
+        }
+        if (actualHP <= 50)
+        {
+            sanity[1].color = tempColor;
+        }
+        Debug.Log("HIT");
+        Debug.Log(actualHP);
     }
 
     public void getDeathTime()
@@ -155,6 +186,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Die()
     {
+        setSanity();
         animator.SetBool("isDead", true);
         this.enabled = false;
         StartCoroutine(WaitDeath());
