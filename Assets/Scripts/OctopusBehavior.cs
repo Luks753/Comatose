@@ -12,6 +12,7 @@ public class OctopusBehavior : Weapon
     bool m_FacingRight;
     Rigidbody2D rb;
     float axisY;
+    float axisX;
     bool isJumping = false;
     private bool cooldown;
 
@@ -21,8 +22,17 @@ public class OctopusBehavior : Weapon
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0.0f;
         rb.Sleep();
+        axisX = transform.position.x;
     }
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            var boneco = collision.collider.GetComponent<PlayerMovement>();
+            if (boneco != null)
+                boneco.TakeDamage(10, 0);
+        }
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -31,6 +41,7 @@ public class OctopusBehavior : Weapon
 
     private void Update()
     {
+        transform.position = new Vector3(axisX, transform.position.y, transform.position.z);
         var origin = new Vector2(transform.position.x, transform.position.y);
         var playerEntered = Physics2D.BoxCastAll(origin, AreaAcao, 180f, Vector2.up).FirstOrDefault(col => col.collider.CompareTag("Player"));
 
