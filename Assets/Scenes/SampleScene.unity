@@ -27395,6 +27395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 1197346887}
   mainScene: SampleScene
+  dCamera: {fileID: 519420031}
 --- !u!114 &1843535791
 MonoBehaviour:
   m_ObjectHideFlags: 0
