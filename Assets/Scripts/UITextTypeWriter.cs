@@ -29,6 +29,7 @@ public class UITextTypeWriter : MonoBehaviour
 	}
 
     public void PlayGame(){
+		Time.timeScale = 1f;
         SceneManager.LoadScene(mainScene);
     }
 
