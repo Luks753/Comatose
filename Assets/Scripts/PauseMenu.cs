@@ -8,10 +8,13 @@ public class PauseMenu : MonoBehaviour
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
     public string mainScene;
+
+    private AudioSource bgAudio;
+    public Camera dCamera;
     // Start is called before the first frame update
     void Start()
     {
-        
+        bgAudio = dCamera.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -27,6 +30,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void Resume(){
+        bgAudio.Play();
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
@@ -44,6 +48,9 @@ public class PauseMenu : MonoBehaviour
     }
 
     void Pause(){
+        //pauses bg audio
+        bgAudio.Pause();
+
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
