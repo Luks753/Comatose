@@ -14,6 +14,7 @@ public class OctopusBehavior : Weapon
     float axisY;
     float axisX;
     bool isJumping = false;
+    private bool slowdown;
     private bool cooldown;
 
     void Start()
@@ -45,6 +46,8 @@ public class OctopusBehavior : Weapon
         var origin = new Vector2(transform.position.x, transform.position.y);
         var playerEntered = Physics2D.BoxCastAll(origin, AreaAcao, 180f, Vector2.up).FirstOrDefault(col => col.collider.CompareTag("Player"));
 
+        Debug.LogWarning($"{rb.velocity}, {rb.gravityScale}, {rb.IsAwake()}");
+
         if (transform.position.y <= axisY)
         {
             OnLanding();
@@ -64,6 +67,11 @@ public class OctopusBehavior : Weapon
             Flip();
         }
 
+        if (rb.IsAwake() && rb.velocity.y < 0)
+        {
+            rb.gravityScale = .5f;
+        }
+
         if (isJumping)
             ShootController();
     }
@@ -76,6 +84,8 @@ public class OctopusBehavior : Weapon
         }
         else
             axisY = transform.position.y;
+
+        slowdown = false;
         cooldown = false;
         isJumping = false;
         rb.gravityScale = 0.0f;
@@ -85,8 +95,9 @@ public class OctopusBehavior : Weapon
     private void ShootController()
     {
         if (!cooldown
-            && transform.position.y >= player.transform.position.y - .5f
-            && transform.position.y <= player.transform.position.y + .5f)
+            && transform.position.y <= player.transform.position.y + .1f
+            && transform.position.y >= player.transform.position.y - .1f
+            && rb.velocity.y <= 0)
         {
             cooldown = true;
             Shoot();
@@ -95,11 +106,12 @@ public class OctopusBehavior : Weapon
 
     private void Jump()
     {
+        slowdown = true;
         isJumping = true;
         rb.gravityScale = 1.5f;
         rb.WakeUp();
         axisY = transform.position.y;
-        rb.AddForce(new Vector2(0, 500f));
+        rb.AddForce(new Vector2(0, 600f));
 
     }
 
