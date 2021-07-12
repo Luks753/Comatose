@@ -30,7 +30,7 @@ public class BossIA : MonoBehaviour
 
     public int damage = 200;
 
-    public float attackRange = 0.7f;
+    public float attackRange = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +58,6 @@ public class BossIA : MonoBehaviour
             if (Time.time >= nextAttack)
             {
                 animator.SetBool("attacking", true);
-                attack.SetActive(true);
                 Attack();
             }
             else
@@ -94,8 +93,15 @@ public class BossIA : MonoBehaviour
                 currentWaypoint++;
             }
 
-            _mSpriteRenderer.flipX = body.velocity.x >= 0.01f;
-            bIsGoingRight = _mSpriteRenderer.flipX;
+            //_mSpriteRenderer.flipX = body.velocity.x >= 0.01f;
+            if (player.transform.position.x > transform.position.x && !bIsGoingRight)
+            {
+                Flip();
+            }
+            else if (player.transform.position.x < transform.position.x && bIsGoingRight)
+            {
+                Flip();
+            }
         }
         else
         {
@@ -136,7 +142,8 @@ public class BossIA : MonoBehaviour
             if (hit.transform.tag == "Terrain" || hit.transform.tag == "Crab")
             {
                 bIsGoingRight = !bIsGoingRight;
-                _mSpriteRenderer.flipX = bIsGoingRight;
+                //_mSpriteRenderer.flipX = bIsGoingRight;
+                transform.Rotate(0f, 180f, 0f);
 
             }
         }
@@ -170,10 +177,12 @@ public class BossIA : MonoBehaviour
     {
         Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attack.transform.position, attackRange, playerLayer);
 
+        nextAttack = Time.time + 5f / attackRate;
+
         foreach (Collider2D player in hitPlayer)
         {
+            attack.SetActive(true);
             player.GetComponent<PlayerMovement>().TakeDamage(damage, transform.position.x);
-            nextAttack = Time.time + 2f / attackRate;
         }
     }
     void OnDrawGizmosSelected()
@@ -181,5 +190,12 @@ public class BossIA : MonoBehaviour
         Gizmos.DrawWireSphere(attack.transform.position, attackRange);
 
         Gizmos.DrawWireSphere(castPoint.position, sightDistance);
+    }
+
+    public void Flip()
+    {
+        // Switch the way the player is labelled as facing.
+        bIsGoingRight = !bIsGoingRight;
+        transform.Rotate(0f, 180f, 0f);
     }
 }
