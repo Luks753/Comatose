@@ -23,6 +23,14 @@ public class BossIA : MonoBehaviour
     int currentWaypoint = 0;
     bool reachedEndOfPath = false;
     float sightDistance = 4f;
+    public GameObject attack;
+    float nextAttack = 2f;
+    float attackRate = 2f;
+    public LayerMask playerLayer;
+
+    public int damage = 200;
+
+    public float attackRange = 0.7f;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +55,17 @@ public class BossIA : MonoBehaviour
 
         if (followPlayer)
         {
+            if (Time.time >= nextAttack)
+            {
+                animator.SetBool("attacking", true);
+                attack.SetActive(true);
+                Attack();
+            }
+            else
+            {
+                animator.SetBool("attacking", false);
+                attack.SetActive(false);
+            }
 
             if (path == null)
             {
@@ -107,7 +126,7 @@ public class BossIA : MonoBehaviour
 
         // Raycasting takes as parameters a Vector3 which is the point of origin, another Vector3 which gives the direction, and finally a float for the maximum distance of the raycast
         //set a pos for raycast from boss position
-        Vector3 rayPos = new Vector3(transform.position.x, transform.position.y-0.5f, 0f);
+        Vector3 rayPos = new Vector3(transform.position.x, transform.position.y - 0.5f, 0f);
         RaycastHit2D hit = Physics2D.Raycast(rayPos + raycastDirection * mRaycastingDistance - new Vector3(0f, 0.25f, 0f), raycastDirection, 0.075f);
         Debug.DrawRay(rayPos + raycastDirection * mRaycastingDistance - new Vector3(0f, 0.25f, 0f), raycastDirection, Color.green);
 
@@ -147,44 +166,19 @@ public class BossIA : MonoBehaviour
         transform.position = teleportPoints[point].transform.position;
     }
 
-    // bool SeePlayer(float distance)
-    // {
-    //     bool val = false;
-    //     float castDist = distance;
-    //     Vector3 raycastDirection = (bIsGoingRight) ? Vector3.right : Vector3.left;
+    void Attack()
+    {
+        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attack.transform.position, attackRange, playerLayer);
 
-    //     // if(!bIsGoingRight){
-    //     //     castDist = -distance;
-    //     // }
-
-    //     Vector2 endPos = castPoint.position + Vector3.forward * castDist;
-
-    //     RaycastHit2D hit = Physics2D.Raycast(castPoint.position, raycastDirection, castDist);
-
-    //     if (hit.collider != null)
-    //     {
-    //         if (hit.collider.gameObject.CompareTag("Player"))
-    //         {
-    //             val = true;
-    //         }
-    //         else
-    //         {
-    //             val = false;
-    //         }
-
-    //         Debug.DrawLine(castPoint.position, hit.point, Color.red);
-    //     }
-    //     else
-    //     {
-    //         Debug.DrawLine(castPoint.position, endPos, Color.yellow);
-
-    //     }
-
-
-    //     return val;
-    // }
+        foreach (Collider2D player in hitPlayer)
+        {
+            player.GetComponent<PlayerMovement>().TakeDamage(damage, transform.position.x);
+            nextAttack = Time.time + 2f / attackRate;
+        }
+    }
     void OnDrawGizmosSelected()
     {
+        Gizmos.DrawWireSphere(attack.transform.position, attackRange);
 
         Gizmos.DrawWireSphere(castPoint.position, sightDistance);
     }

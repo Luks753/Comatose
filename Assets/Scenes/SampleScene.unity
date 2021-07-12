@@ -4093,7 +4093,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 431986713}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25.95, y: -24.42, z: 0}
+  m_LocalPosition: {x: -2.75, y: 5.35, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 24482287}
@@ -5156,7 +5156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25.95, y: -24.42}
+  m_AnchoredPosition: {x: -2.7500002, y: 5.35}
   m_SizeDelta: {x: 240, y: 176}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!82 &519420034
@@ -20781,7 +20781,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 582433707}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.95, y: -24.42, z: -10}
+  m_LocalPosition: {x: -2.7500002, y: 5.35, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 403740332}
@@ -22917,7 +22917,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 0.8178136, g: 0.6839622, b: 1, a: 1}
-  m_Intensity: 0.6
+  m_Intensity: 1
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 0000000067e978eb81b955df
   m_LightCookieSprite: {fileID: 0}
@@ -25252,7 +25252,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.4, y: 0.93}
+  m_Size: {x: 0.4, y: 0.54}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -25270,6 +25270,7 @@ Transform:
   m_LocalScale: {x: 6.487172, y: 6.487172, z: 6.487172}
   m_Children:
   - {fileID: 1514880370}
+  - {fileID: 1472672939}
   m_Father: {fileID: 0}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25312,7 +25313,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.4, y: 0.54}
-    newSize: {x: 1.4, y: 0.93}
+    newSize: {x: 0.4, y: 0.54}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -25348,6 +25349,12 @@ MonoBehaviour:
   castPoint: {fileID: 1514880370}
   speed: 200
   nextWayPointDistance: 3
+  attack: {fileID: 1472672938}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  damage: 200
+  attackRange: 0.7
 --- !u!114 &1190652062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27655,6 +27662,36 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!1 &1472672938
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1472672939}
+  m_Layer: 0
+  m_Name: attackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1472672939
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472672938}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.234, y: -0.297, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1190652058}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1475680962
 GameObject:
   m_ObjectHideFlags: 0
