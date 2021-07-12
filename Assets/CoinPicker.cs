@@ -9,20 +9,21 @@ public class CoinPicker : MonoBehaviour
     public GameObject[] keypart;
 
     private int counter = 0;
-    private string name;
-    
+    private string namee;
+    public AudioSource audioKey;
 
     private void OnTriggerEnter2D(Collider2D other){
         if(other.transform.tag == "Key"){
-            name = other.gameObject.name;
+            namee = other.gameObject.name;
             Destroy(other.gameObject);
-
-            hudChanger(name);
+            //play pickup key sound
+            audioKey.PlayOneShot(audioKey.clip);
+            hudChanger(namee);
         }
     }
 
-    void hudChanger(string name){
-        switch(name)
+    void hudChanger(string namee){
+        switch(namee)
         {
             case "Feather1":
                 keypart[0].SetActive(true);
